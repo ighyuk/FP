@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-3">
+<h1>
+    시설별 출입현황
+</h1>
+    <HR>
+    <br/>
+     <select class="selectpicker">
+    <option>도서관</option>
+    <option>학생식당</option>
+    <option>실험실</option>
+  </select>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+<table class="table table-striped table-bordered table-hover">
+        <thead>
+        <div style: text-align:center;>
+        </div>
+            <tr>
+                <th>#</th>
+                <th>출입시각</th>
+                <th>학과</th>
+                <th>학번</th>
+                <th>이름</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>2022.03.01.09:00:01</td>
+                <td>컴퓨터소프트웨어공학과</td>
+                <td>20220001</td>
+                <td>Mahsa</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>2022.03.01.09:00:01</td>
+                <td>컴퓨터공학과</td>
+                <td>20220002</td>
+                <td>Sareh</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>2022.03.01.09:00:01</td>
+                <td>신소재공학과</td>
+                <td>20220003</td>
+                <td>Mahsood</td>
+            </tr>
+            <tr class="success">
+                <td>4</td>
+                <td>2022.03.01.09:00:01</td>
+                <td>토목공학과</td>
+                <td>20220004</td>
+                <td>Arnold</td>
+            </tr>
+            <tr class="danger">
+                <td>5</td>
+                <td>2022.03.01.09:00:01</td>
+                <td>기계공학과</td>
+                <td>20220005</td>
+                <td>Larene</td>
+            </tr>
+         <tr class="danger">
+                <td>6</td>
+                <td>2022.03.01.09:00:01</td>
+                <td>전자공학과</td>
+                <td>20220006</td>
+                <td>Asser</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
