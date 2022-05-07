@@ -21,8 +21,8 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-    server = WebSocketServer('192.168.35.204', 8001, SimpleEcho)
-    server.serve_forever()
+    """server = WebSocketServer('192.168.35.204', 8001, SimpleEcho)
+    server.serve_forever()"""
 
 class SimpleEcho(WebSocket):
     def handle(self):
