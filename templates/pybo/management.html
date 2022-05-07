@@ -1,48 +1,122 @@
 {% extends "base.html" %}
 {% block content %}
-<body>
-  <h2 align=center>Auto Video Stream to Still Image</h2>
+<div class="container my-3">
+<h1>
+    출입관리 : 도서관 정문
+</h1>
+    <HR>
+    <br/>
 
-<video  id="myVideo" width="400" height="300" style="border: 1px solid #ddd;"></video>
-<canvas id="myCanvas" width="160" height="140" style="border: 1px solid #ddd;"></canvas><br>
-
-<input type=button value="get Video" onclick="{getVideo()}">
-<input type=button value="get Pic" onclick="{takeSnapshot()}"><br>
-Take snapshot every <input type=number id="myInterval"  value="3000"> milliseconds
-<input type=button value="Auto" onclick="{takeAuto()}">
-</body>
+<!--<img src="https://mblogthumb-phinf.pstatic.net/MjAxNzAzMjlfMTE4/MDAxNDkwNzU4ODYzNTUw.6075CwGpyS2HHBz42Z-PufyuwdNEcl6XgP7lCJW4MSgg.zYdv5RogQHpPTeJPfDeiUAFx_jiI6lVLImJZZDCemIog.JPEG.businessinsight/%25EC%2595%2588%25EB%25A9%25B4_%25EC%259D%25B8%25EC%258B%259D.jpg?type=w800" alt="My Image" width="600" height="400">-->
+    <br/>
+    <br/>
+    <video id="videoInput" style="display:none"></video>
+        <!--<img src="http://192.168.35.204:8000/pybo/detectme"/>-->
+        <canvas id="videoOutput"></canvas>
+    <button class="btn btn-primary" onclick="stream()">촬영 시작</button>
+    <br/>
+    <br/>
+<table class="table table-striped table-bordered table-hover">
+        <thead>
+        <div style: text-align:center;>
+            <a a>실시간 인식 정보 </a>
+        </div>
+            <tr>
+                <th>#</th>
+                <th>학과</th>
+                <th>학번</th>
+                <th>이름</th>
+                <th>일치율</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>컴퓨터소프트웨어공학과</td>
+                <td>20220001</td>
+                <td>Mahsa</td>
+                <td>98.8%</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>컴퓨터공학과</td>
+                <td>20220002</td>
+                <td>Sareh</td>
+                <td>98.8%</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>신소재공학과</td>
+                <td>20220003</td>
+                <td>Mahsood</td>
+                <td>98.8%</td>
+            </tr>
+            <tr class="success">
+                <td>4</td>
+                <td>토목공학과</td>
+                <td>20220004</td>
+                <td>Arnold</td>
+                <td>98.8%</td>
+            </tr>
+            <tr class="danger">
+                <td>5</td>
+                <td>기계공학과</td>
+                <td>20220005</td>
+                <td>Larene</td>
+                <td>98.8%</td>
+            </tr>
+         <tr class="danger">
+                <td>6</td>
+                <td>전자공학과</td>
+                <td>20220006</td>
+                <td>Asser</td>
+                <td>98.8%</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
     <script>
-         var myVideoStream = document.getElementById('myVideo')     // make it a global variable
-  var myStoredInterval = 0
-
-function getVideo(){
-  navigator.getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-  navigator.getMedia({video: true, audio: false},
-
-    function(stream) {
-      myVideoStream.srcObject = stream
-      myVideoStream.play();
-  },
-
-   function(error) {
-     alert('webcam not working');
-  });
-}
-
-function takeSnapshot() {
-   var myCanvasElement = document.getElementById('myCanvas');
-   var myCTX = myCanvasElement.getContext('2d');
-   myCTX.drawImage(myVideoStream, 0, 0, myCanvasElement.width, myCanvasElement.height);
-}
-
-function takeAuto() {
-    takeSnapshot() // get snapshot right away then wait and repeat
-    clearInterval(myStoredInterval)
-    myStoredInterval = setInterval(function(){
-       takeSnapshot()
-   }, document.getElementById('myInterval').value);
-}
-
-
+        var w = 320,
+            h = 240;
+        var url = "ws://58.227.53.204:8001"
+        var ws = new WebSocket(url);
+        ws.onopen = function () {
+            console.log("Websocket is connected.");
+        }
+        ws.onmessage = function (msg) {
+            console.log(msg.data);
+        }
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        var constraints = {
+            audio: false,
+            video: true
+        };
+        var video = document.getElementById("videoInput");
+        video.width = w;
+        video.height = h;
+        function successCallback(stream) {
+            video.srcObject = stream;
+            video.play();
+        }
+        function errorCallback(error) {
+            console.log(error);
+        }
+        navigator.getUserMedia(constraints, successCallback, errorCallback);
+        var canvas = document.getElementById("videoOutput");
+        canvas.width = w;
+        canvas.height = h;
+        var ctx = canvas.getContext("2d");
+        function processImage() {
+            ctx.drawImage(video, 0, 0, w, h);
+            setTimeout(processImage, 1);
+        }
+        processImage();
+        function stream() {
+            setInterval(sendImage, 30);
+        }
+        function sendImage() {
+            var rawData = canvas.toDataURL("image/jpeg", 0.5);
+            ws.send(rawData);
+        }
     </script>
 {% endblock %}
