@@ -52,7 +52,7 @@ from django.http import HttpResponse
 
 def index(request):
     """
-    pybo 목록 출력
+    FP 목록 출력
     """
     # 입력 파라미터
     page = request.GET.get('page', '1')  # 페이지
@@ -64,27 +64,27 @@ def index(request):
     paginator = Paginator(user_list, 10)  # 페이지당 10개씩 보여주기
     page_obj = paginator.get_page(page)
     context = {'user_list': page_obj}
-    return render(request, 'pybo/user_list.html', context)
+    return render(request, 'FP/user_list.html', context)
 
 def detail(request, user_id):
     """
-    pybo 내용 출력
+    FP 내용 출력
     """
     user = get_object_or_404(User, pk=user_id)
     context = {'user' : user}
-    return render(request, 'pybo/user_detail.html', context)
+    return render(request, 'FP/user_detail.html', context)
 
 def management(request):
     """
-    pybo 내용 출력
+    FP 내용 출력
     """
     """server = WebSocketServer('192.168.35.204', 8001, SimpleEcho)
     server.serve_forever()"""
-    return render(request, 'pybo/management.html')
+    return render(request, 'FP/management.html')
 
 def live(request):
     """
-    pybo 내용 출력
+    FP 내용 출력
     """
 
-    return render(request, 'pybo/live.html')
+    return render(request, 'FP/live.html')

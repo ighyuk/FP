@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from pybo import views
+from FP import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('pybo/', include('pybo.urls')),
+    path('FP/', include('FP.urls')),
     path('common/', include('common.urls')),
 ]

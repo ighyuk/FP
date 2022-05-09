@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['13.124.180.12']
 
 INSTALLED_APPS = [
     'common.apps.CommonConfig',
-    'pybo.apps.PyboConfig',
+    'FP.apps.FPConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

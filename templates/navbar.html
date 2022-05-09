@@ -1,6 +1,6 @@
 <!-- 네비게이션바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <a class="navbar-brand" href="{% url 'pybo:index' %}">FaceAttendance</a>
+    <a class="navbar-brand" href="{% url 'FP:index' %}">FaceAttendance</a>
     <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -8,10 +8,10 @@
    <div class="collapse navbar-collapse" id="navbarNav">
          <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'pybo:management' %}"> 출입관리 </a>
+                    <a class="nav-link" href="{% url 'FP:management' %}"> 출입관리 </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'pybo:live' %}"> 출입현황 </a>
+                    <a class="nav-link" href="{% url 'FP:live' %}"> 출입현황 </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"> 학생관리 </a>
