@@ -82,9 +82,9 @@ def management(request):
     server.serve_forever()"""
     return render(request, 'FP/management.html')
 
-def live(request):
+def visitRecord(request):
     """
     FP 내용 출력
     """
 
-    return render(request, 'FP/live.html')
+    return render(request, 'FP/visitRecord.html')
