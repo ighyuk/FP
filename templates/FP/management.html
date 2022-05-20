@@ -11,8 +11,7 @@
     <br/>
     <br/>
     <video id="videoInput" style="display:none"></video>
-        <!--<img src="http://192.168.35.204:8000/pybo/detectme"/>-->
-        <canvas id="videoOutput"></canvas>
+    <canvas id="videoOutput"></canvas>
     <button class="btn btn-primary" onclick="stream()">촬영 시작</button>
     <br/>
     <br/>
@@ -76,9 +75,9 @@
     </table>
 </div>
     <script>
-        var w = 320,
-            h = 240;
-        var url = "ws://58.227.53.204:8001"
+        var w = 240,
+            h = 280;
+        var url = "wss://kumohfp.kro.kr/ws/FP/chat/"
         var ws = new WebSocket(url);
         ws.onopen = function () {
             console.log("Websocket is connected.");
@@ -108,14 +107,14 @@
         var ctx = canvas.getContext("2d");
         function processImage() {
             ctx.drawImage(video, 0, 0, w, h);
-            setTimeout(processImage, 1);
+            setTimeout(processImage, 0.3);
         }
         processImage();
         function stream() {
-            setInterval(sendImage, 30);
+            setInterval(sendImage, 100);
         }
         function sendImage() {
-            var rawData = canvas.toDataURL("image/jpeg", 0.5);
+            var rawData = canvas.toDataURL("image/jpeg", 1);
             ws.send(rawData);
         }
     </script>

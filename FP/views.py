@@ -50,6 +50,14 @@ def detectme(request):
 from django.http import HttpResponse
 
 
+def chat(request):
+  return render(request, 'FP/chat.html')
+  
+def room(request, room_name):
+  return render(request, 'FP/room.html', {
+    'room_name': room_name
+    })
+
 def index(request):
     """
     FP 목록 출력
